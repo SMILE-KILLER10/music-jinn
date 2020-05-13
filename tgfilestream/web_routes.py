@@ -29,15 +29,24 @@ routes = web.RouteTableDef()
 ongoing_requests: Dict[str, int] = defaultdict(lambda: 0)
 
 
-@routes.head(r"/stream/{id:\d+}")
+@routes.head(r"/download/{id:\d+}/{name}")
 async def handle_head_request(req: web.Request) -> web.Response:
-    return await handle_request(req, head=True)
+    return await handle_request(req, head=True)    
 
-
-@routes.get(r"/stream/{id:\d+}")
+@routes.get(r"/download/{id:\d+}/{name}")
 async def handle_get_request(req: web.Request) -> web.Response:
     return await handle_request(req, head=False)
 
+@routes.get(r"/f/{id:\d+}.html")
+async def handle_get_request(req: web.Request) -> web.Response:
+    file_id = int(req.match_info["id"])
+    peer, msg_id = unpack_id(file_id)
+    if not peer or not msg_id:
+        return web.Response(status=404, text="404: Not Found")
+    
+    message = cast(Message, await client.get_messages(entity=peer, ids=msg_id))
+    file_name = get_file_name(message)
+    raise web.HTTPFound(f'/download/{file_id}/{file_name}')
 
 @routes.get(r"/")
 async def handle_home_request(req: web.Request) -> web.Response:
@@ -63,6 +72,8 @@ async def handle_request(req: web.Request, head: bool = False) -> web.Response:
         return web.Response(status=404, text="404: Not Found")
 
     message = cast(Message, await client.get_messages(entity=peer, ids=msg_id))
+    if not message or not message.file or get_file_name(message) != file_name:
+        return web.Response(status=404, text="404: Not Found")
 
     size = message.file.size
     offset = req.http_range.start or 0
@@ -82,5 +93,6 @@ async def handle_request(req: web.Request, head: bool = False) -> web.Response:
                             "Content-Type": message.file.mime_type,
                             "Content-Range": f"bytes {offset}-{size}/{size}",
                             "Content-Length": str(limit - offset),
+                            "Content-Disposition": f'attachment; filename="{file_name}"',
                             "Accept-Ranges": "bytes",
                         })
