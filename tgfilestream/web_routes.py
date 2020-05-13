@@ -45,7 +45,6 @@ async def handle_get_request(req: web.Request) -> web.Response:
         return web.Response(status=404, text="404: Not Found")
     
     message = cast(Message, await client.get_messages(entity=peer, ids=msg_id))
-    log.info(message)
     if not message:
         return web.Response(status=404, text="404: Not Found")
     
@@ -77,7 +76,6 @@ async def handle_request(req: web.Request, head: bool = False) -> web.Response:
         return web.Response(status=404, text="404: Not Found")
 
     message = cast(Message, await client.get_messages(entity=peer, ids=msg_id))
-    log.info(message)
     if not message or not message.file or get_file_name(message) != file_name:
         return web.Response(status=404, text="404: Not Found")
 
