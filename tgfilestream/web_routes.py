@@ -41,13 +41,13 @@ async def handle_get_request(req: web.Request) -> web.Response:
 async def handle_get_request(req: web.Request) -> web.Response:
     file_id = int(req.match_info["id"])
     peer, msg_id = unpack_id(file_id)
-    log.info(peer)
-    log.info(msg_id)
     if not peer or not msg_id:
         return web.Response(status=404, text="404: Not Found")
     
     message = cast(Message, await client.get_messages(entity=peer, ids=msg_id))
-    log.info(message)
+    if not message:
+        return web.Response(status=404, text="404: Not Found")
+    
     file_name = get_file_name(message)
     raise web.HTTPFound(f'/download/{file_id}/{file_name}')
 
