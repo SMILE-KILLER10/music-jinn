@@ -63,7 +63,7 @@ def get_file_name(message: Union[Message, events.NewMessage.Event]) -> str:
     return f"{message.date.strftime('%Y-%m-%d_%H:%M:%S')}{ext}"
 
 
-def get_human_size(size):
+def get_human_size(num):
     base = 1024.0
     sufix_list = ['B','KiB','MiB','GiB','TiB','PiB','EiB','ZiB', 'YiB']
     for unit in sufix_list:

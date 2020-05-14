@@ -40,7 +40,7 @@ async def stop(app):
 
 
 async def init(loop):
-    server = web.Application(loop=loop)
+    server = web.Application()
     await start()
     setup_routes(server, Views())
     setup_jinja(server)
