@@ -32,8 +32,6 @@ class Views:
         if not message:
             return {
                 'found':False,
-                'name':'Not Found',
-                'id':file_id
             }
         
         file_name = get_file_name(message)
@@ -61,7 +59,7 @@ class Views:
         if not peer or not msg_id:
             return web.Response(status=404, text="404: Not Found")
 
-        message = cast(Message, await client.get_messages(entity=peer, ids=msg_id))
+        message = await client.get_messages(entity=peer, ids=msg_id)
         if not message or not message.file or get_file_name(message) != file_name:
             return web.Response(status=404, text="404: Not Found")
 

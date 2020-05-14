@@ -8,19 +8,22 @@
             {% endif %}
                 
         </title>
+        <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
     </head>
   
     <body>
-        {% if found %}
-            <h3> 
-                Download {{name}} ({{ size }})
-            </h3>
-            
-            <a href="/download/{{id}}/{{name}}"> Download Now! </a>
-            
-        {% else %}
-            <h1> 404 Not Found! </h1>
-        {% endif %}
+        <div class="container bg-green-200 p-4">
+            {% if found %}
+                <h3 class="m-3 p-3 text-center text-green-500 text-2xl border rounded border-green-400"> 
+                    Download {{name}} ({{ size }})
+                </h3>
+                
+                <a class="m-3 p-3 text-center text-white bg-blue-600 rounded" href="/download/{{id}}/{{name}}"> Download Now! </a>
+                
+            {% else %}
+                <h1> 404 Not Found! </h1>
+            {% endif %}
+        </div>
     </body>
 
 </html>
