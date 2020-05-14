@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <title>
+            {% if found %}
+                Download | {{title}}
+            {% else %}
+                Not Found!
+            {% endif %}
+                
+        </title>
+    </head>
+  
+    <body>
+        {% if found %}
+            <h3> 
+                Download {{name}} ({{ size }})
+            </h3>
+            
+            <a href="/download/{{id}}/{{name}}"> Download Now! </a>
+            
+        {% else %}
+            <h1> 404 Not Found! </h1>
+        {% endif %}
+    </body>
+
+</html>

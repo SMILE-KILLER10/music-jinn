@@ -1,4 +1,5 @@
 aiohttp
+aiohttp-jinja2
 yarl
 telethon
 cryptg
