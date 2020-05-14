@@ -5,6 +5,7 @@ import sys
 import aiohttp_jinja2
 import jinja2
 from aiohttp import web
+from telethon import functions
 
 from .telegram import client, transfer
 from .routes import setup_routes
