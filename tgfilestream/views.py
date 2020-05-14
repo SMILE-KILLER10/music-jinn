@@ -28,7 +28,7 @@ class Views:
                 'found':False,
             }
         
-        message = cast(Message, await client.get_messages(entity=peer, ids=msg_id))
+        message = await client.get_messages(entity=peer, ids=msg_id)
         if not message:
             return {
                 'found':False,
