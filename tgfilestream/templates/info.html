@@ -1,31 +1,57 @@
-<html>
+<!doctype html>
+<html lang="en">
     <head>
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
         <title>
             {% if found %}
                 Download | {{name}}
             {% else %}
                 Not Found!
             {% endif %}
-                
         </title>
-        <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
-    </head>
-  
-    <body>
-        <div class="container bg-green-200 p-4 min-h-screen w-screen">
-            {% if found %}
-                <h3 class="m-4 p-3 text-center text-green-500 text-2xl sm:text-xl lg:text-2xl xl:text-3xl border rounded border-green-400"> 
-                    Download {{name}} ({{ size }})
-                </h3>
-                
-                <a class="m-4 p-3 text-center text-white bg-blue-600 rounded" href="/download/{{id}}/{{name}}"> Download Now! </a>
-                
-            {% else %}
-                <h3 class="p-3 text-center text-red-500 text-2xl sm:text-xl lg:text-2xl xl:text-3xl border rounded border-red-400">
-                    404 Not Found! 
-                </h1>
-            {% endif %}
-        </div>
-    </body>
+        
+        <style>
+        body, html {
+            height: 100%;
+        }
+        .bg {
+            background-image: url("https://source.unsplash.com/random");
 
+            height: 100%;
+
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-color: hsla(0,0%,100%,0.70);
+            background-blend-mode: overlay;
+        }
+        </style>
+    </head>
+    <body class="bg">
+        <main>
+            <div class="container text-center text-white">
+                {% if found %}
+                    <div class="row py-5">
+                        <div class="col-md-12">
+                            <h1>
+                                Download {{name}} ({{ size }})
+                            </h1>
+                        </div>
+                    </div>
+                    
+                    <div class="row py-5">
+                        <div class="col-md-12">
+                            <a href="/download/{{id}}/{{name}}" class="btn btn-primary"> Download Now! </a>
+                        </div>
+                    </div>
+                {% else %}
+                    <h1>Not Found!</h2>
+                {% endif %}
+                
+                
+            </div>
+        </main>
+    </body>
 </html>
