@@ -36,11 +36,22 @@ class Views:
         
         file_name = get_file_name(message)
         file_size = get_human_size(message.file.size)
+        media = {
+            'type':message.file.mime_type
+        }
+        if 'video/' in message.file.mime_type:
+            media['video'] = True
+        elif 'audio/' in message.file.mime_type:
+            media['audio'] = True
+        elif 'image/' in message.file.mime_type:
+            media['image'] = True
+        
         return {
             'found':True,
             'name':file_name,
             'id':file_id,
-            'size':file_size
+            'size':file_size,
+            'media':media
         }
     
     

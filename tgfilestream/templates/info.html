@@ -40,6 +40,22 @@
                             </h1>
                         </div>
                     </div>
+                    {% if media.image %}
+                        <div class="col-sm-12">
+                            <img src="/download/{{id}}/{{name}}" class="img-thumbnail img-fluid" alt="{{name}}">
+                        </div>
+                    {% if media.video %}
+                        <div class="col-sm-12 ">
+                            <video width="70%" controls muted muted>
+                                <source src="/download/{{id}}/{{name}}" type="{{ media.type }}">
+                            </video>
+                        </div>
+                    {% if media.audio %}
+                        <div class="col-sm-12 ">
+                            <audio controls autoplay muted src="https://tg2extbot.herokuapp.com/download/2337597577675420/cNw8A5pwbVI-251.mp3" type="{{ media.type }}">
+                            </audio>
+                        </div>
+                    {% endif %}
                     
                     <div class="row py-5">
                         <div class="col-md-12">
