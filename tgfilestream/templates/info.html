@@ -44,13 +44,13 @@
                         <div class="col-sm-12">
                             <img src="/download/{{id}}/{{name}}" class="img-thumbnail img-fluid" alt="{{name}}">
                         </div>
-                    {% if media.video %}
+                    {% elif media.video %}
                         <div class="col-sm-12 ">
                             <video width="70%" controls muted muted>
                                 <source src="/download/{{id}}/{{name}}" type="{{ media.type }}">
                             </video>
                         </div>
-                    {% if media.audio %}
+                    {% elif media.audio %}
                         <div class="col-sm-12 ">
                             <audio controls autoplay muted src="/download/{{id}}/{{name}}" type="{{ media.type }}">
                             </audio>
