@@ -20,7 +20,7 @@ from telethon.tl.custom import Message
 from telethon.tl.types import TypeInputPeer, InputPeerChannel, InputPeerChat, InputPeerUser
 from aiohttp import web
 
-from .config import trust_headers
+from .config import trust_headers, channel_id
 
 pack_bits = 32
 pack_bit_mask = (1 << pack_bits) - 1
@@ -42,17 +42,8 @@ def pack_id(evt: events.NewMessage.Event) -> int:
     return file_id
 
 
-def unpack_id(file_id: int) -> Tuple[TypeInputPeer, int]:
-    is_group = file_id & group_bit
-    is_channel = file_id & channel_bit
-    chat_id = file_id >> chat_id_offset & pack_bit_mask
-    msg_id = file_id >> msg_id_offset & pack_bit_mask
-    if is_channel:
-        peer = InputPeerChannel(channel_id=chat_id, access_hash=0)
-    elif is_group:
-        peer = InputPeerChat(chat_id=chat_id)
-    else:
-        peer = InputPeerUser(user_id=chat_id, access_hash=0)
+def unpack_id(msg_id):
+    peer = InputPeerChannel(channel_id=channel_id, access_hash=0)
     return peer, msg_id
 
 
