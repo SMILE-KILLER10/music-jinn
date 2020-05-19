@@ -29,9 +29,9 @@ routes = web.RouteTableDef()
 ongoing_requests: Dict[str, int] = defaultdict(lambda: 0)
 
 
-@routes.head("/get/{id}")
-async def handle_head_request(req: web.Request) -> web.Response:
-    return await handle_request(req, head=True)
+#@routes.head("/get/{id}")
+#async def handle_head_request(req: web.Request) -> web.Response:
+#    return await handle_request(req, head=True)
 
 
 @routes.get("/get/{id}")
