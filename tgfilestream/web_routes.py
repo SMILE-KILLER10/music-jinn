@@ -29,12 +29,12 @@ routes = web.RouteTableDef()
 ongoing_requests: Dict[str, int] = defaultdict(lambda: 0)
 
 
-@routes.head(r"/stream/{id:\d+}")
+@routes.head(r"/get/{id:\d+}")
 async def handle_head_request(req: web.Request) -> web.Response:
     return await handle_request(req, head=True)
 
 
-@routes.get(r"/stream/{id:\d+}")
+@routes.get(r"/get/{id:\d+}")
 async def handle_get_request(req: web.Request) -> web.Response:
     return await handle_request(req, head=False)
 
@@ -62,8 +62,11 @@ async def handle_request(req: web.Request, head: bool = False) -> web.Response:
     if not peer or not msg_id:
         return web.Response(status=404, text="404: Not Found")
 
-    message = cast(Message, await client.get_messages(entity=peer, ids=msg_id))
-
+    message = await client.get_messages(entity=peer, ids=msg_id)
+    if not message:
+        return web.Response(status=404, text="404: Not Found")
+    
+    file_name = get_file_name(message)
     size = message.file.size
     offset = req.http_range.start or 0
     limit = req.http_range.stop or size
@@ -82,5 +85,6 @@ async def handle_request(req: web.Request, head: bool = False) -> web.Response:
                             "Content-Type": message.file.mime_type,
                             "Content-Range": f"bytes {offset}-{size}/{size}",
                             "Content-Length": str(limit - offset),
+                            "Content-Disposition": f'attachment; filename="{file_name}"',
                             "Accept-Ranges": "bytes",
                         })
