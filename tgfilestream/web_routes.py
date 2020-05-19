@@ -29,12 +29,12 @@ routes = web.RouteTableDef()
 ongoing_requests: Dict[str, int] = defaultdict(lambda: 0)
 
 
-@routes.head(r"/get/{id:\d+}")
+@routes.head(r"/get/{chat_id:\d+}/{msg_id:\d+}")
 async def handle_head_request(req: web.Request) -> web.Response:
     return await handle_request(req, head=True)
 
 
-@routes.get(r"/get/{id:\d+}")
+@routes.get(r"/get/{chat_id:\d+}/{msg_id:\d+}")
 async def handle_get_request(req: web.Request) -> web.Response:
     return await handle_request(req, head=False)
 
@@ -57,9 +57,9 @@ def decrement_counter(ip: str) -> None:
 
 
 async def handle_request(req: web.Request, head: bool = False) -> web.Response:
-    file_id = int(req.match_info["id"])
-    peer, msg_id = unpack_id(file_id)
-    print(peer, msg_id)
+    msg_id = int(req.match_info["msg_id"])
+    chat_id = int(req.match_info["chat_id"])
+    peer, msg_id = unpack_id(chat_id, msg_id)
     if not peer or not msg_id:
         return web.Response(status=404, text="404: Not Found")
 
