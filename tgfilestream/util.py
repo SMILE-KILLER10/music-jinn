@@ -43,7 +43,7 @@ def pack_id(evt: events.NewMessage.Event) -> int:
 
 
 def unpack_id(chat_id, msg_id):
-    peer = InputPeerChannel(channel_id=chat_id, access_hash=0)
+    peer = InputPeerUser(channel_id=chat_id, access_hash=0)
     return peer, msg_id
 
 
