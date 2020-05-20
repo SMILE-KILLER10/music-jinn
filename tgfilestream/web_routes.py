@@ -17,11 +17,10 @@ from typing import Dict, cast
 from collections import defaultdict
 import logging
 
-from telethon.tl.custom import Message
 from aiohttp import web
 
-from .util import unpack_id, get_file_name, get_requester_ip
-from .config import request_limit
+from .util import get_file_name, get_requester_ip
+from .config import channel_id
 from .telegram import client, transfer
 
 log = logging.getLogger(__name__)
@@ -29,12 +28,12 @@ routes = web.RouteTableDef()
 ongoing_requests: Dict[str, int] = defaultdict(lambda: 0)
 
 
-@routes.head(r"/get/{chat_id:\d+}/{msg_id:\d+}")
+@routes.head(r"/get/{msg_id:\d+}")
 async def handle_head_request(req: web.Request) -> web.Response:
     return await handle_request(req, head=True)
 
 
-@routes.get(r"/get/{chat_id:\d+}/{msg_id:\d+}")
+@routes.get(r"/get/{msg_id:\d+}")
 async def handle_get_request(req: web.Request) -> web.Response:
     return await handle_request(req, head=False)
 
@@ -44,26 +43,10 @@ async def handle_home_request(req: web.Request) -> web.Response:
     return web.Response(text="Hello There!")
 
 
-def allow_request(ip: str) -> None:
-    return ongoing_requests[ip] < request_limit
-
-
-def increment_counter(ip: str) -> None:
-    ongoing_requests[ip] += 1
-
-
-def decrement_counter(ip: str) -> None:
-    ongoing_requests[ip] -= 1
-
-
 async def handle_request(req: web.Request, head: bool = False) -> web.Response:
     msg_id = int(req.match_info["msg_id"])
-    chat_id = int(req.match_info["chat_id"])
-    peer, msg_id = unpack_id(chat_id, msg_id)
-    if not peer or not msg_id:
-        return web.Response(status=404, text="404: Not Found")
 
-    message = await client.get_messages(entity=peer, ids=msg_id)
+    message = await client.get_messages(channel_id, ids=msg_id)
     if not message:
         return web.Response(status=404, text="404: Not Found")
     
@@ -74,8 +57,6 @@ async def handle_request(req: web.Request, head: bool = False) -> web.Response:
 
     if not head:
         ip = get_requester_ip(req)
-        if not allow_request(ip):
-            return web.Response(status=429)
         log.info(f"Serving file in {message.id} (chat {message.chat_id}) to {ip}")
         body = transfer.download(message.media, file_size=size, offset=offset, limit=limit)
     else:
