@@ -14,6 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 from typing import Tuple, Union
+import re
 
 from telethon import events
 from telethon.tl.custom import Message
@@ -49,8 +50,10 @@ def unpack_id(chat_id, msg_id):
 
 def get_file_name(message: Union[Message, events.NewMessage.Event]) -> str:
     if message.file.name:
-        return message.file.name
-    ext = message.file.ext or ""
+        sanitised_filename = re.sub(r'[\n]', ' ', message.file.name)
+        return sanitised_filename
+    
+    ext = message.file.ext or ".bin"
     return f"{message.date.strftime('%Y-%m-%d_%H:%M:%S')}{ext}"
 
 
