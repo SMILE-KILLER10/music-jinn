@@ -31,10 +31,10 @@
                      
                     <div class="mx-auto w-1/3 md:w-1/4">
                         {% if media.image %}
-                            <img class="h-auto w-full rounded" src="/download/{{id}}/{{name}}" alt="{{name}}">
+                            <img class="rounded" src="/download/{{id}}/{{name}}" alt="{{name}}">
                         
                         {% elif media.video %}
-                                <video id="my-video" class="h-auto w-full rounded video-js" controls muted preload="auto" data-setup="{}">
+                                <video id="my-video" class="rounded video-js" controls muted preload="auto" data-setup="{}">
                                     <source src="/download/{{id}}/{{name}}" type="{{ media.type }}">
                                     <p class="vjs-no-js">
                                         To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video.</a>

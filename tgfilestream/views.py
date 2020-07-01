@@ -47,7 +47,7 @@ class Views:
             media['image'] = True
             
         if message.text:
-            caption = message.text
+            caption = message.raw_text
         else:
             caption = False
         
