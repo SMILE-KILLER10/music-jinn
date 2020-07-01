@@ -34,7 +34,7 @@ class Views:
                 'found':False,
             }
         
-        print(message)
+        print(message.text)
         
         file_name = get_file_name(message)
         file_size = get_human_size(message.file.size)
