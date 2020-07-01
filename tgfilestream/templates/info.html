@@ -2,72 +2,68 @@
 <html lang="en">
     <head>
         
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+        <link href="https://vjs.zencdn.net/7.8.3/video-js.css" rel="stylesheet" />
 
         <title>
             {% if found %}
                 Download | {{name}}
             {% else %}
-                Not Found!
+                Ooops...
             {% endif %}
         </title>
-        
-        <style>
-        body, html {
-            height: 100%;
-        }
-        .bg {
-            background-image: url("https://source.unsplash.com/random");
-
-            height: 100%;
-
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-color: hsla(0,0%,100%,0.70);
-            background-blend-mode: overlay;
-        }
-        </style>
     </head>
-    <body class="bg">
-        <main>
-            <div class="container text-center text-white">
+    <body>
+        <div class="m-auto w-full xl:max-w-screen-xl">
+            <header class="p-4 bg-gray-300 text-gray-700 rounded">
+            
+                <a class="text-base md:text-lg lg:text-xl xl:text-2xl" href="https://tx.me/tg2extbot">@Tg2extBot</a>
+        
+            </header>
+            
+            <div class="p-4 space-y-8">
                 {% if found %}
-                    <div class="row py-5">
-                        <div class="col-md-12">
-                            <h1>
-                                Download {{name}} ({{ size }})
-                            </h1>
-                        </div>
+                    <h1 class="text-blue-500 text-center text-lg md:text-xl lg:text-2xl xl:text-4xl w-full">
+                        Download {{name}}
+                    </h1>
+                     
+                    <div class="mx-auto w-1/3 md:w-1/4">
+                        {% if media.image %}
+                            <img class="w-full rounded" src="/download/{{id}}/{{name}}" alt="{{name}}">
+                        
+                        {% elif media.video %}
+                                <video id="my-video" class="w-full rounded video-js" controls muted preload="auto" data-setup="{}">
+                                    <source src="/download/{{id}}/{{name}}" type="{{ media.type }}">
+                                    <p class="vjs-no-js">
+                                        To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video.</a>
+                                    </p>
+                                </video>
+                        {% elif media.audio %}
+                            <audio controls autoplay muted src="/download/{{id}}/{{name}}" type="{{ media.type }}"></audio>
+                        {% endif %}
                     </div>
-                    {% if media.image %}
-                        <div class="col-sm-12">
-                            <img src="/download/{{id}}/{{name}}" class="img-thumbnail img-fluid" alt="{{name}}">
-                        </div>
-                    {% elif media.video %}
-                        <div class="col-sm-12 ">
-                            <video width="70%" controls muted muted>
-                                <source src="/download/{{id}}/{{name}}" type="{{ media.type }}">
-                            </video>
-                        </div>
-                    {% elif media.audio %}
-                        <div class="col-sm-12 ">
-                            <audio controls autoplay muted src="/download/{{id}}/{{name}}" type="{{ media.type }}">
-                            </audio>
-                        </div>
-                    {% endif %}
                     
-                    <div class="row py-5">
-                        <div class="col-md-12">
-                            <a href="/download/{{id}}/{{name}}" class="btn btn-primary"> Download Now! </a>
-                        </div>
+                    <div class="text-center text-white text-sm md:text-base lg:text-lg xl:text-2xl">
+                
+                        <a class="rounded p-3 bg-indigo-500 hover:bg-indigo-700" href="#">Download Now! ({{ size }})</a>
+                    
                     </div>
+                    
                 {% else %}
-                    <h1>Not Found!</h2>
+                    <h1 class="text-blue-500 text-center text-2xl md:text-3xl lg:text-4xl xl:text-5xl">Ooops...</h1>
+                
+                    <p class="text-center text-sm md:text-base lg:text-xl xl:text-2xl font-semibold">
+                        File Not Found! Please Forward a file to our telegram bot to get a direct link!
+                    </p>
                 {% endif %}
                 
-                
             </div>
-        </main>
+            
+            <footer class="p-4 mt-4 bg-gray-300 text-gray-700 text-center">
+            
+                <a class="text-base md:text-lg lg:text-xl xl:text-2xl" href="https://tx.me/odbots">@odbots</a>
+            
+            </footer>
+        </div>
     </body>
 </html>
