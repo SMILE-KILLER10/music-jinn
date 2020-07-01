@@ -20,34 +20,34 @@
         <div class="m-auto w-full xl:max-w-screen-xl">
             <header class="p-4 bg-gray-300 text-gray-700 rounded">
             
-                <a class="text-base md:text-lg lg:text-xl xl:text-2xl" href="https://tx.me/tg2extbot">@Tg2extBot</a>
+                <a class="text-xs md:text-base lg:text-lg xl:text-xl" href="https://tx.me/tg2extbot">@Tg2extBot</a>
         
             </header>
             
             <div class="p-4 space-y-8">
                 {% if found %}
-                    <h1 class="text-blue-500 text-center text-xl md:text-2xl lg:text-3xl xl:text-4xl w-full break-all">
+                    <h1 class="text-blue-500 text-center text-lg md:text-xl lg:text-2xl xl:text-4xl w-full break-all">
                         Download {{name}}
                     </h1>
                      
-                    <div class="mx-auto">
+                    <div class="mx-auto w-full md:w-3/4 lg:w-4/5">
                         {% if media.image %}
-                            <img class="mx-auto w-3/4 rounded" src="/download/{{id}}/{{name}}" alt="{{name}}">
+                            <img class="mx-auto w-1/2 md:w-3/5 lg:w-2/5 rounded" src="/download/{{id}}/{{name}}" alt="{{name}}">
                         
                         {% elif media.video %}
-                                <video id="my-video" class="w-full rounded video-js" controls muted preload="auto" data-setup="{}">
+                                <video id="my-video" class="mx-auto w-full md:w-3/4 lg:w-3/5 xl:w-2/5 rounded video-js" controls muted preload="auto" data-setup="{}">
                                     <source src="/download/{{id}}/{{name}}" type="{{ media.type }}">
                                     <p class="vjs-no-js">
                                         To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video.</a>
                                     </p>
                                 </video>
                         {% elif media.audio %}
-                            <audio controls autoplay muted src="/download/{{id}}/{{name}}" type="{{ media.type }}"></audio>
+                            <audio class="mx-auto" controls autoplay muted src="/download/{{id}}/{{name}}" type="{{ media.type }}"></audio>
                         {% endif %}
                         
                         {% if caption %}
                         
-                            <p class="w-full mt-1 rounded text-justify p-4 bg-gray-900 text-gray-300 font-mono break-all text-base md:text-lg lg:text-xl xl:text-2xl">
+                            <p class="mt-1 rounded text-justify p-4 bg-gray-900 text-gray-300 font-mono text-xs lg:text-sm xl:text-lg">
                             
                                 {{ caption }}
                             
@@ -57,7 +57,7 @@
                         
                     </div>
                     
-                    <div class="text-center text-white text-sm md:text-base lg:text-lg xl:text-2xl">
+                    <div class="text-center text-white text-sm md:text-base xl:text-2xl">
                 
                         <a class="rounded p-3 bg-indigo-500 hover:bg-indigo-700" href="/download/{{id}}/{{name}}">Download Now! ({{ size }})</a>
                     
@@ -75,7 +75,7 @@
             
             <footer class="p-4 mt-4 bg-gray-300 text-gray-700 text-center">
             
-                <a class="text-base md:text-lg lg:text-xl xl:text-2xl" href="https://tx.me/odbots">@odbots</a>
+                <a class="text-sm md:text-base lg:text-lg xl:text-xl" href="https://tx.me/odbots">@odbots</a>
             
             </footer>
         </div>
