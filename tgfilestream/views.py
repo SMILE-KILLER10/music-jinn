@@ -34,8 +34,6 @@ class Views:
                 'found':False,
             }
         
-        print(message.text)
-        
         file_name = get_file_name(message)
         file_size = get_human_size(message.file.size)
         media = {
@@ -47,13 +45,19 @@ class Views:
             media['audio'] = True
         elif 'image/' in message.file.mime_type:
             media['image'] = True
+            
+        if message.text:
+            caption = message.text
+        else:
+            caption = False
         
         return {
             'found':True,
             'name':file_name,
             'id':file_id,
             'size':file_size,
-            'media':media
+            'media':media,
+            'caption':caption
         }
     
     
