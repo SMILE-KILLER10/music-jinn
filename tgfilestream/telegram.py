@@ -24,4 +24,5 @@ from .util import pack_id, get_file_name
 log = logging.getLogger(__name__)
 
 client = TelegramClient(session_name, api_id, api_hash)
+client.parse_mode = 'html'
 transfer = ParallelTransferrer(client)
