@@ -34,7 +34,7 @@
                             <img class="rounded" src="/download/{{id}}/{{name}}" alt="{{name}}">
                         
                         {% elif media.video %}
-                                <video id="my-video" class="rounded video-js" controls muted preload="auto" data-setup="{}">
+                                <video id="my-video" class="w-full h-auto rounded video-js" controls muted preload="auto" data-setup="{}">
                                     <source src="/download/{{id}}/{{name}}" type="{{ media.type }}">
                                     <p class="vjs-no-js">
                                         To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video.</a>
@@ -46,7 +46,7 @@
                         
                         {% if caption %}
                         
-                            <p class="mt-1 rounded text-justify p-4 bg-gray-900 text-gray-300 font-mono break-all">
+                            <p class="w-full mt-1 rounded text-justify p-4 bg-gray-900 text-gray-300 font-mono break-all">
                             
                                 {{ caption }}
                             
