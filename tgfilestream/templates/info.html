@@ -26,13 +26,13 @@
             
             <div class="p-4 space-y-8">
                 {% if found %}
-                    <h1 class="text-blue-500 text-center text-lg md:text-xl lg:text-2xl xl:text-4xl w-full break-all">
+                    <h1 class="text-blue-500 text-center text-xl md:text-2xl lg:text-3xl xl:text-4xl w-full break-all">
                         Download {{name}}
                     </h1>
                      
-                    <div class="mx-auto  w-1/2">
+                    <div class="mx-auto">
                         {% if media.image %}
-                            <img class="rounded" src="/download/{{id}}/{{name}}" alt="{{name}}">
+                            <img class="mx-auto w-3/4 rounded" src="/download/{{id}}/{{name}}" alt="{{name}}">
                         
                         {% elif media.video %}
                                 <video id="my-video" class="w-full rounded video-js" controls muted preload="auto" data-setup="{}">
@@ -47,7 +47,7 @@
                         
                         {% if caption %}
                         
-                            <p class="w-full mt-1 rounded text-justify p-4 bg-gray-900 text-gray-300 font-mono break-all">
+                            <p class="w-full mt-1 rounded text-justify p-4 bg-gray-900 text-gray-300 font-mono break-all text-base md:text-lg lg:text-xl xl:text-2xl">
                             
                                 {{ caption }}
                             
