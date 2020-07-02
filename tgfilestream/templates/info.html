@@ -32,17 +32,17 @@
                      
                     <div class="mx-auto w-full md:w-3/4 lg:w-4/5">
                         {% if media.image %}
-                            <img class="mx-auto w-1/2 md:w-3/5 lg:w-2/5 rounded" src="/download/{{id}}/{{name}}" alt="{{name}}">
+                            <img class="mx-auto w-1/2 md:w-3/5 lg:w-2/5 rounded" src="/stream/{{id}}/{{name}}" alt="{{name}}">
                         
                         {% elif media.video %}
                                 <video id="my-video" class="mx-auto w-full md:w-3/4 lg:w-3/5 xl:w-2/5 rounded video-js" controls muted preload="auto" data-setup="{}">
-                                    <source src="/download/{{id}}/{{name}}" type="{{ media.type }}">
+                                    <source src="/stream/{{id}}/{{name}}" type="{{ media.type }}">
                                     <p class="vjs-no-js">
                                         To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video.</a>
                                     </p>
                                 </video>
                         {% elif media.audio %}
-                            <audio class="mx-auto" controls autoplay muted src="/download/{{id}}/{{name}}" type="{{ media.type }}"></audio>
+                            <audio class="mx-auto" controls autoplay muted src="/stream/{{id}}/{{name}}" type="{{ media.type }}"></audio>
                         {% endif %}
                         
                         {% if caption %}

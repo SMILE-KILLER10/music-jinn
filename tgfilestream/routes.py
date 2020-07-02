@@ -8,6 +8,7 @@ def setup_routes(app, handler):
             web.get('/', h.index, name='index'),
             web.get(r"/f/{id:\d+}.html", h.info, name='info'),
             web.get(r"/download/{id:\d+}/{name}", h.download_get),
-            web.head(r"/download/{id:\d+}/{name}", h.download_head)
+            web.head(r"/download/{id:\d+}/{name}", h.download_head),
+            web.get(r"/stream/{id:\d+}/{name}", h.stream_file)
         ]
     )

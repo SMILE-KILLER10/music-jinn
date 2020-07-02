@@ -66,10 +66,15 @@ class Views:
     
     
     async def download_head(self, req):
-        return await self.handle_request(req, True)
+        return await self.handle_request(req, head=True)
     
     
-    async def handle_request(self, req, head=False):
+    async def stream_file(self, req):
+        return await self.handle_request(req, stream=True)
+        
+    
+    
+    async def handle_request(self, req, head=False, stream=False):
         file_id = int(req.match_info["id"])
         file_name = req.match_info["name"]
         peer, msg_id = unpack_id(file_id)
@@ -90,12 +95,19 @@ class Views:
             body = transfer.download(message.media, file_size=size, offset=offset, limit=limit)
         else:
             body = None
-        return web.Response(status=206 if offset else 200,
-                            body=body,
-                            headers={
-                                "Content-Type": message.file.mime_type,
-                                "Content-Range": f"bytes {offset}-{size}/{size}",
-                                "Content-Length": str(limit - offset),
-                                "Content-Disposition": f'attachment; filename="{file_name}"',
-                                "Accept-Ranges": "bytes",
-                            })
+        
+        headers = {
+            "Content-Type": message.file.mime_type,
+            "Content-Range": f"bytes {offset}-{size}/{size}",
+            "Content-Length": str(limit - offset),
+            "Accept-Ranges": "bytes"
+        }
+        
+        if not stream:
+            headers["Content-Disposition"] = f'attachment; filename="{file_name}"'
+        
+        return web.Response(
+            status=206 if offset else 200,
+            body=body,
+            headers=headers
+        )
