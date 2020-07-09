@@ -37,7 +37,7 @@ class Views:
                 'reason' : "File Not Found! Please Forward a file to our telegram bot to get a direct link!"
             }
         
-        if (datetime.date.today() - message.date).days > 2:
+        if (datetime.datetime.today() - message.date).days > 2:
             return {
                 'found':False,
                 'reason' : "Link Expired! Please Forward a file to our telegram bot to get a direct link!"
@@ -97,7 +97,7 @@ class Views:
         if get_file_name(message) != file_name:
             return web.Response(status=404, text="404: Not Found")
         
-        if (datetime.date.today() - message.date).days > 2:
+        if (datetime.datetime.today() - message.date).days > 2:
             return web.Response(status=410, text="410: Gone. Access to the target resource is no longer available!")
 
         size = message.file.size
