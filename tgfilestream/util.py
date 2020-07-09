@@ -58,7 +58,7 @@ def unpack_id(file_id: int) -> Tuple[TypeInputPeer, int]:
 
 def get_file_name(message: Union[Message, events.NewMessage.Event]) -> str:
     if message.file.name:
-        return message.file.name
+        return message.file.name.replace('\n', ' ')
     ext = message.file.ext or ""
     return f"{message.date.strftime('%Y-%m-%d_%H:%M:%S')}{ext}"
 

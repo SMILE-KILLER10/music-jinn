@@ -59,7 +59,7 @@
                     
                     <div class="text-center text-white text-sm md:text-base xl:text-2xl">
                 
-                        <a class="rounded p-3 bg-indigo-500 hover:bg-indigo-700" href="/download/{{id}}/{{name}}">Download Now! ({{ size }})</a>
+                        <a class="rounded p-3 bg-indigo-500 hover:bg-indigo-700 shadow-lg" href="/download/{{id}}/{{name}}">Download Now! ({{ size }})</a>
                     
                     </div>
                     
@@ -67,7 +67,7 @@
                     <h1 class="text-blue-500 text-center text-2xl md:text-3xl lg:text-4xl xl:text-5xl">Ooops...</h1>
                 
                     <p class="text-center text-sm md:text-base lg:text-xl xl:text-2xl font-semibold">
-                        File Not Found! Please Forward a file to our telegram bot to get a direct link!
+                        {{ reason }}
                     </p>
                 {% endif %}
                 
