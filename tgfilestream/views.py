@@ -37,6 +37,8 @@ class Views:
                 'reason' : "File Not Found! Please Forward a file to our telegram bot to get a direct link!"
             }
         
+        log.info(f"{(datetime.datetime.now(datetime.timezone.utc) - message.date).seconds} - {(datetime.datetime.now(datetime.timezone.utc) - message.date).seconds > 172800}")
+        
         if (datetime.datetime.now(datetime.timezone.utc) - message.date).seconds > 172800: # 48 hours
             return {
                 'found':False,
@@ -96,6 +98,8 @@ class Views:
         
         if get_file_name(message) != file_name:
             return web.Response(status=404, text="404: Not Found")
+        
+        
         
         if (datetime.datetime.now(datetime.timezone.utc) - message.date).seconds > 172800: # 48 hours
             return web.Response(status=410, text="410: Gone. Access to the target resource is no longer available!")
