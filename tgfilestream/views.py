@@ -106,16 +106,9 @@ class Views:
         try:
             offset = req.http_range.start or 0
             limit = req.http_range.stop or size
-        except:
-            return web.Response(
-                status=416,
-                text="416: Range Not Satisfiable",
-                headers = {
-                    "Content-Range": f"bytes */{size}"
-                }
-            )
-        
-        if (limit >= size) or (offset < 0) or (limit < offset):
+            if (limit > size) or (offset < 0) or (limit < offset):
+                raise ValueError("range not in acceptable format")
+        except ValueError:
             return web.Response(
                 status=416,
                 text="416: Range Not Satisfiable",
