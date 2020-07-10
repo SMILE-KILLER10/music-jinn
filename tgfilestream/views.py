@@ -123,6 +123,8 @@ class Views:
                     "Content-Range": f"bytes */{size}"
                 }
             )
+        
+        log.info(f"Range {offset} - {limit}")
 
         if not head:
             ip = get_requester_ip(req)
