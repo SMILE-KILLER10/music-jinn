@@ -103,17 +103,8 @@ class Views:
             return web.Response(status=410, text="410: Gone. Access to the target resource is no longer available!")
 
         size = message.file.size
-        try:
-            offset = req.http_range.start or 0
-            limit = req.http_range.stop or size
-        except:
-            return web.Response(
-                status=416,
-                text="416: Range Not Satisfiable",
-                headers = {
-                    "Content-Range": f"bytes */{size}"
-                }
-            )
+        offset = req.http_range.start or 0
+        limit = req.http_range.stop or size
         
         if (limit > size) or (offset < 0) or (limit < offset):
             return web.Response(
