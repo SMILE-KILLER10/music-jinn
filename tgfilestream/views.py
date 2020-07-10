@@ -135,7 +135,7 @@ class Views:
         
         headers = {
             "Content-Type": message.file.mime_type,
-            "Content-Range": f"bytes {offset}-{size}/{size}",
+            "Content-Range": f"bytes {offset}-{limit}/{size}",
             #"Content-Length": str(limit - offset),
             "Accept-Ranges": "bytes"
         }
