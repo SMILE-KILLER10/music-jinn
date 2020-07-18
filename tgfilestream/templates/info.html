@@ -35,8 +35,8 @@
                             <img class="mx-auto w-1/2 md:w-3/5 lg:w-2/5 rounded" src="/stream/{{id}}/{{name}}" alt="{{name}}">
                         
                         {% elif media.video %}
-                                <video id="video-id" class="mx-auto w-full md:w-3/4 rounded">
-                                    <source src="/stream/{{id}}/{{name}}" type="{{ media.type }}">
+                                <video id="video-id" class="mx-auto w-full rounded">
+                                    <source src="/stream/{{id}}/{{name}}" type="{{ media.type }}"/>
                                 </video>
                         {% elif media.audio %}
                             <audio class="mx-auto" controls autoplay muted src="/stream/{{id}}/{{name}}" type="{{ media.type }}"></audio>
