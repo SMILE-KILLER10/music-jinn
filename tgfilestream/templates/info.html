@@ -36,7 +36,7 @@
                         
                         {% elif media.video %}
                             <video id="my-video-player" class="mx-auto w-full rounded" controls >
-                                <source src="/stream/{{id}}/{{name}}">
+                                <source src="/stream/{{id}}/{{name}}" type="{{ media.type }}" >
                             </video>
                         {% elif media.audio %}
                             <audio class="mx-auto" controls autoplay muted src="/stream/{{id}}/{{name}}" type="{{ media.type }}"></audio>
