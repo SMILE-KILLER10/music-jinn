@@ -4,8 +4,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
-        <link href="https://vjs.zencdn.net/7.8.3/video-js.css" rel="stylesheet" />
-
+        <script src="https://cdn.fluidplayer.com/v3/current/fluidplayer.min.js"></script>
+        
         <title>
             {% if found %}
                 Download | {{name}}
@@ -14,7 +14,6 @@
             {% endif %}
         </title>
         
-        <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
 
     </head>
     <body>
@@ -36,11 +35,8 @@
                             <img class="mx-auto w-1/2 md:w-3/5 lg:w-2/5 rounded" src="/stream/{{id}}/{{name}}" alt="{{name}}">
                         
                         {% elif media.video %}
-                                <video id="my-video" class="mx-auto w-full md:w-3/4 lg:w-3/5 xl:w-2/5 rounded video-js" controls muted preload="auto" data-setup="{}">
+                                <video id="video-id" class="mx-auto w-full md:w-3/4 rounded">
                                     <source src="/stream/{{id}}/{{name}}" type="{{ media.type }}">
-                                    <p class="vjs-no-js">
-                                        To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video.</a>
-                                    </p>
                                 </video>
                         {% elif media.audio %}
                             <audio class="mx-auto" controls autoplay muted src="/stream/{{id}}/{{name}}" type="{{ media.type }}"></audio>
@@ -81,6 +77,45 @@
             </footer>
         </div>
         
+        <script>
+            var myFP = fluidPlayer(
+                'video-id',{
+                    "layoutControls": {
+                        "controlBar": {
+                            "autoHideTimeout": 3,
+                            "animated": true,
+                            "autoHide": true
+                        },
+                        "logo": {
+                            "imageUrl": null,
+                            "position": "top left",
+                            "clickUrl": null,
+                            "opacity": 1
+                        },
+                        "htmlOnPauseBlock": {
+                            "html": null,
+                            "height": null,
+                            "width": null
+                        },
+                        "autoPlay": false,
+                        "mute": true,
+                        "allowTheatre": true,
+                        "playPauseAnimation": true,
+                        "playbackRateEnabled": true,
+                        "allowDownload": false,
+                        "playButtonShowing": true,
+                        "fillToContainer": false,
+                        "posterImage": ""
+                    },
+                    "vastOptions": {
+                        "adList": [],
+                        "adCTAText": false,
+                        "adCTATextPosition": ""
+                    }
+                }
+            )
+        </script>
+        
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-172336751-1"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
@@ -90,6 +125,5 @@
             gtag('config', 'UA-172336751-1');
         </script>
         
-        <script src="https://vjs.zencdn.net/7.8.3/video.js"></script>
     </body>
 </html>
