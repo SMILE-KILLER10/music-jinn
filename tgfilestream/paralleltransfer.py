@@ -176,13 +176,13 @@ class ParallelTransferrer:
                             yield result.bytes
                         log.debug(f"Part {part}/{last_part} (total {part_count}) downloaded")
                         part += 1
-                    expect FloodWaitError as e:
+                    except FloodWaitError as e:
                         wait_seconds = int(e.seconds)
                         if wait_seconds > 10:
                             raise
                         log.debug(f"Flood Wait: sleeping for {wait_seconds}s")
                         await asyncio.sleep(wait_seconds)
-                    expect:
+                    except:
                         raise
                 log.debug("Parallel download finished")
         except (GeneratorExit, StopAsyncIteration, asyncio.CancelledError):
