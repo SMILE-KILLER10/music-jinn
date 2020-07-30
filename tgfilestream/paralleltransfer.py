@@ -178,7 +178,7 @@ class ParallelTransferrer:
                         part += 1
                     except FloodWaitError as e:
                         wait_seconds = int(e.seconds)
-                        if wait_seconds > 10:
+                        if wait_seconds > 25:
                             raise
                         log.debug(f"Flood Wait: sleeping for {wait_seconds}s")
                         await asyncio.sleep(wait_seconds)
