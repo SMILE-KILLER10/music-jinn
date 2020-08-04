@@ -129,7 +129,7 @@ class Views:
         headers = {
             "Content-Type": message.file.mime_type,
             "Content-Range": f"bytes {offset}-{limit}/{size}",
-            #"Content-Length": str(limit - offset),
+            "Content-Length": str(limit - offset),
             "Accept-Ranges": "bytes"
         }
         
@@ -143,7 +143,5 @@ class Views:
             body=body,
             headers=headers
         )
-        
-        resp.enable_chunked_encoding()
-        
+        #resp.enable_chunked_encoding()
         return resp
