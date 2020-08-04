@@ -74,15 +74,14 @@ class DCConnectionManager:
     async def _new_connection(self) -> Connection:
         if not self.dc:
             self.dc = await self.client._get_dc(self.dc_id)
-        sender = MTProtoSender(self.auth_key, self.loop, loggers=self.client._log)
+        sender = MTProtoSender(self.auth_key, loggers=self.client._log)
         index = len(self.connections) + 1
         conn = Connection(sender=sender, log=self.log.getChild(f"conn{index}"), lock=asyncio.Lock())
         self.connections.append(conn)
         async with conn.lock:
             conn.log.info("Connecting...")
             connection_info = self.client._connection(self.dc.ip_address, self.dc.port, self.dc.id,
-                                                      loop=self.loop, loggers=self.client._log,
-                                                      proxy=self.client._proxy)
+                                                      loggers=self.client._log, proxy=self.client._proxy)
             await sender.connect(connection_info)
             if not self.auth_key:
                 await self._export_auth_key(conn)
