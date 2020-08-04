@@ -1,5 +1,5 @@
 aiohttp
 aiohttp-jinja2
 yarl
-telethon
+telethon>=1.16.0
 cryptg
