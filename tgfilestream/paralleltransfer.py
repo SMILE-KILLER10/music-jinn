@@ -184,7 +184,7 @@ class ParallelTransferrer:
     def download(self, file: TypeLocation, file_size: int, offset: int, limit: int
                  ) -> AsyncGenerator[bytes, None]:
         dc_id, location = utils.get_input_location(file)
-        part_size = 512 * 1024
+        part_size = 1024 * 1024
         first_part_cut = offset % part_size
         first_part = math.floor(offset / part_size)
         last_part_cut = part_size - (limit % part_size)
