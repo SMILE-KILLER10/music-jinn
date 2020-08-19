@@ -35,11 +35,60 @@
                             <img class="mx-auto w-1/2 md:w-3/5 lg:w-2/5 rounded" src="/stream/{{id}}/{{name}}" alt="{{name}}">
                         
                         {% elif media.video %}
-                            <video id="my-video-player" class="mx-auto w-full rounded" controls >
-                                <source src="/stream/{{id}}/{{name}}" type="{{ media.type }}" >
-                            </video>
+                            <div id="video-warning" class="mx-auto p-4 bg-gray-600 text-gray-300 rounded border text-center hidden break-words">
+                                    <p> Video {{name}} could not be played!</p>
+                            </div>
+
+                            <div class="mx-auto" id="vid-container">
+                                <video id="my-video-player" class="w-full rounded" controls >
+                                    <source src="/stream/{{id}}/{{name}}" type="video/mp4" >
+                                </video>
+                            </div>
+
+                            <script>
+                                var video = document.querySelector("video");
+                                var src = video.firstElementChild
+
+                                src.addEventListener('error', function(evt) {
+                                    console.log(evt);
+                                    document.getElementById('vid-container').style.display = 'none';
+                                    document.getElementById('video-warning').style.display = 'block';
+                                }); 
+                                var myFP = fluidPlayer(
+                                    'my-video-player',{
+                                        "layoutControls": {
+                                            "autoPlay": false,
+                                            "mute": true,
+                                            "allowTheatre": true,
+                                            "playPauseAnimation": true,
+                                            "playbackRateEnabled": true,
+                                            "allowDownload": false,
+                                            "playButtonShowing": true,
+                                        }
+                                    }
+                                );
+                            </script>
                         {% elif media.audio %}
-                            <audio class="mx-auto" controls autoplay muted src="/stream/{{id}}/{{name}}" type="{{ media.type }}"></audio>
+                            <div id="audio-warning" class="mx-auto p-4 bg-gray-600 text-gray-300 rounded border text-center hidden break-words">
+                                <p> Audio {{name}} could not be played!</p>
+                            </div>
+
+                            <div class="mx-auto" id="aud-container">
+                                <audio class="mx-auto" controls autoplay muted >
+                                    <source src="/stream/{{id}}/{{name}}" type="audio/mpeg">
+                                </audio>
+                            </div>
+
+                            <script>
+                                    var audio = document.querySelector("audio");
+                                    var src = audio.firstElementChild
+
+                                    src.addEventListener('error', function(evt) {
+                                        console.log(evt);
+                                        document.getElementById('aud-container').style.display = 'none';
+                                        document.getElementById('audio-warning').style.display = 'block';
+                                    });
+                            </script>
                         {% endif %}
                         
                         {% if caption %}
@@ -76,46 +125,7 @@
             
             </footer>
         </div>
-        
-        <script>
-            var myFP = fluidPlayer(
-                'my-video-player',{
-                    "layoutControls": {
-                        "controlBar": {
-                            "autoHideTimeout": 3,
-                            "animated": true,
-                            "autoHide": true
-                        },
-                        "logo": {
-                            "imageUrl": null,
-                            "position": "top left",
-                            "clickUrl": null,
-                            "opacity": 1
-                        },
-                        "htmlOnPauseBlock": {
-                            "html": null,
-                            "height": null,
-                            "width": null
-                        },
-                        "autoPlay": false,
-                        "mute": true,
-                        "allowTheatre": true,
-                        "playPauseAnimation": true,
-                        "playbackRateEnabled": true,
-                        "allowDownload": false,
-                        "playButtonShowing": true,
-                        "fillToContainer": true,
-                        "posterImage": ""
-                    },
-                    "vastOptions": {
-                        "adList": [],
-                        "adCTAText": false,
-                        "adCTATextPosition": ""
-                    }
-                }
-            );
-        </script>
-        
+
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-172336751-1"></script>
         <script>
             window.dataLayer = window.dataLayer || [];
