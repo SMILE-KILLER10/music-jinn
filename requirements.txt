@@ -1,4 +1,4 @@
 aiohttp
 yarl
-telethon
+telethon==1.15.0
 cryptg
